@@ -17,11 +17,11 @@ class ProxyPool:
         self.proxies = [p for p in self.proxies if p != proxy] # List comprehension should be faster than remove()
 
     def get_proxy(self) -> Dict[str, str]:
-        """Get a working proxy."""
-        working_proxies = [p for p in self.proxies if p not in self.blacklist]
-        if working_proxies:
-            return random.choice(working_proxies)
-        raise Exception("No working proxies available")
+        """Get a proxy."""
+        proxies = [p for p in self.proxies if p not in self.blacklist]
+        if proxies:
+            return random.choice(proxies)
+        raise Exception("No proxies available")
 
     def mark_proxy_failed(self, proxy: str):
         """Add a proxy to the blacklist."""
