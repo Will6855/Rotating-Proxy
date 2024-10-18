@@ -22,7 +22,7 @@ pip install rotating_proxy
 from rotating_proxy import ProxyPool
 
 # Create a ProxyPool instance with your proxies
-pool = ProxyPool([{'http': 'http://192.140.42.83:31511'}, {'http': 'http://131.153.187.5:50689'}])
+pool = ProxyPool([{'http': '192.140.42.83:31511'}, {'http': '131.153.187.5:50689'}])
 
 # Get a working proxy
 proxy = pool.rotate_proxy()
