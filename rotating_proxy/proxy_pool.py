@@ -3,9 +3,10 @@ import requests
 from typing import Dict, List
 
 class ProxyPool:
-    def __init__(self, proxies: List[Dict[str, str]] = None):
+    def __init__(self, proxies: List[Dict[str, str]] = None, test_url: str = 'https://httpbin.org/ip'):
         self.proxies = proxies or []
         self.blacklist = []
+        self.test_url = test_url
 
     def add_proxy(self, proxy: Dict[str, str]):
         """Add a proxy to the pool."""
@@ -34,10 +35,10 @@ class ProxyPool:
                 # self.blacklist.remove(proxy)
                 self.blacklist = [p for p in self.blacklist if p != proxy] # List comprehension should be faster than remove()
 
-    def is_proxy_working(self, proxy: Dict[str, str], test_url: str = 'https://httpbin.org/ip') -> bool:
+    def is_proxy_working(self, proxy: Dict[str, str]) -> bool:
         """Check if a proxy is working by making a test request."""
         try:
-            response = requests.get(test_url, proxies=proxy, timeout=2)
+            response = requests.get(self.test_url, proxies=proxy, timeout=2)
             return response.status_code == 200
         except Exception:
             # print(f"Proxy {proxy} is not working.")
