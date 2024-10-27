@@ -7,6 +7,9 @@ class ProxyPool:
         self.proxies = proxies or []
         self.blacklist = []
         self.test_url = test_url
+        
+    def change_test_url(self, test_url: str):
+        self.test_url = test_url
 
     def add_proxy(self, proxy: Dict[str, str]):
         """Add a proxy to the pool."""
