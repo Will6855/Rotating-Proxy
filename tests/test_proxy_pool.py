@@ -4,7 +4,7 @@ import os
 
 # Add the project root directory to the system path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from rotating_proxy.proxy_pool import ProxyPool
+from rotating_proxy import ProxyPool
 
 class TestProxyPool(unittest.TestCase):
     def test_add_and_remove_proxy(self):

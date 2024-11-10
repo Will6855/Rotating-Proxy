@@ -9,6 +9,7 @@ class ProxyPool:
         self.test_url = test_url
         
     def change_test_url(self, test_url: str):
+        """Change the URL used to test the proxies."""
         self.test_url = test_url
 
     def add_proxy(self, proxy: Dict[str, str]):
@@ -46,6 +47,16 @@ class ProxyPool:
         except Exception:
             # print(f"Proxy {proxy} is not working.")
             return False
+        
+    def filter_working_proxies(self):
+        """Move non-working proxies to the blacklist."""
+        working_proxies = []
+        for proxy in self.proxies:
+            if self.is_proxy_working(proxy):
+                working_proxies.append(proxy)
+            else:
+                self.blacklist.append(proxy)
+        self.proxies = working_proxies
 
     def rotate_proxy(self) -> Dict[str, str]:
         """Get the next working proxy, rotate if necessary."""
