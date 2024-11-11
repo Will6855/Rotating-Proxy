@@ -9,9 +9,7 @@ from rotating_proxy import ProxySession, ProxyPool
 
 class TestProxySession(unittest.TestCase):
     def setUp(self):
-        self.proxy_pool = ProxyPool([{'http': '23.94.136.205:80'},
-            {'http': '67.43.228.254:14955'},
-            {'http': '65.108.207.6:80'}])
+        self.proxy_pool = ProxyPool(['http://67.43.227.227:9189'])
         
     def test_init(self):
         proxy_session = ProxySession(self.proxy_pool)

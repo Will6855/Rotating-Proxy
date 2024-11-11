@@ -25,8 +25,8 @@ class Project:
     def __init__(self):
         # Initialize the proxy pool with a list of proxies.
         # Replace "127.0.0.1:80" with your own proxies in the format:
-        # [{"http":"proxy1"},{"http":"proxy2"},...{"http":"proxyN"}]
-        self.proxy_pool = ProxyPool([{"http":"127.0.0.1:80"}])
+        # ["http://proxy1","http://proxy2",..."http://proxyN"]
+        self.proxy_pool = ProxyPool(["http://127.0.0.1:80"])
         self.proxy_pool.filter_working_proxies()
 
         self.proxy_session = ProxySession(self.proxy_pool)
@@ -40,7 +40,7 @@ class Project:
 
 if __name__ == "__main__":
     project = Project()
-    project.request_function(url="http://httpbin.org/ip", method="GET")
+    project.request_function(url="https://httpbin.org/ip", method="GET")
 ```
 
 ## Contributing

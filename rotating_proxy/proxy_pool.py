@@ -1,9 +1,9 @@
 import random
 import requests
-from typing import Dict, List
+from typing import List
 
 class ProxyPool:
-    def __init__(self, proxies: List[Dict[str, str]] = None, test_url: str = 'https://httpbin.org/ip'):
+    def __init__(self, proxies: List[str] = None, test_url: str = 'https://httpbin.org/ip'):
         self.proxies = proxies or []
         self.blacklist = []
         self.test_url = test_url
@@ -12,16 +12,16 @@ class ProxyPool:
         """Change the URL used to test the proxies."""
         self.test_url = test_url
 
-    def add_proxy(self, proxy: Dict[str, str]):
+    def add_proxy(self, proxy: str):
         """Add a proxy to the pool."""
         self.proxies.append(proxy)
 
-    def remove_proxy(self, proxy: Dict[str, str]):
+    def remove_proxy(self, proxy: str):
         """Remove a proxy from the pool."""
         # self.proxies.remove(proxy)
         self.proxies = [p for p in self.proxies if p != proxy] # List comprehension should be faster than remove()
 
-    def get_proxy(self) -> Dict[str, str]:
+    def get_proxy(self) -> str:
         """Get a proxy."""
         proxies = [p for p in self.proxies if p not in self.blacklist]
         if proxies:
@@ -39,10 +39,10 @@ class ProxyPool:
                 # self.blacklist.remove(proxy)
                 self.blacklist = [p for p in self.blacklist if p != proxy] # List comprehension should be faster than remove()
 
-    def is_proxy_working(self, proxy: Dict[str, str]) -> bool:
+    def is_proxy_working(self, proxy: str) -> bool:
         """Check if a proxy is working by making a test request."""
         try:
-            response = requests.get(self.test_url, proxies=proxy, timeout=2)
+            response = requests.get(self.test_url, proxies={"http": proxy, "https": proxy}, timeout=2)
             return response.status_code == 200
         except Exception:
             # print(f"Proxy {proxy} is not working.")
@@ -58,7 +58,7 @@ class ProxyPool:
                 self.blacklist.append(proxy)
         self.proxies = working_proxies
 
-    def rotate_proxy(self) -> Dict[str, str]:
+    def rotate_proxy(self) -> str:
         """Get the next working proxy, rotate if necessary."""
         for _ in range(len(self.proxies)):
             proxy = self.get_proxy()

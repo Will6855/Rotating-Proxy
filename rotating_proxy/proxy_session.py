@@ -27,7 +27,7 @@ class ProxySession:
             Exception: If all attempts to make the request fail.
         """
         for _ in range(tries):
-            self.session.proxies.update(self.current_proxy)
+            self.session.proxies.update({"http": self.current_proxy, "https": self.current_proxy})
             try:
                 response = self.session.request(method, url, **kwargs)
                 return response
@@ -55,10 +55,8 @@ class ProxySession:
     #     """
     #     async with aiohttp.ClientSession() as session:
     #         for _ in range(tries):
-    #             protocol, ip = next(iter(self.current_proxy.items()))
-    #             proxy_str = f"{protocol}://{ip}"
     #             try:
-    #                 async with session.request(method, url, proxy=proxy_str, **kwargs) as response:
+    #                 async with session.request(method, url, proxy=self.current_proxy, **kwargs) as response:
     #                     return response
     #             except aiohttp.ClientError as e:
     #                 print(f"Try {_+1}: Error making request with proxy {self.current_proxy}: {e}")
