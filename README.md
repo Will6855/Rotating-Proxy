@@ -1,4 +1,5 @@
 # Rotating Proxy
+![PyPI Downloads](https://static.pepy.tech/badge/rotating-proxy)
 
 A Python package for managing and utilizing rotating proxies effectively. This module provides a simple and efficient way to handle multiple proxies, automatically switching between them to enhance web scraping or any HTTP requests that require anonymity.
 ## Features
