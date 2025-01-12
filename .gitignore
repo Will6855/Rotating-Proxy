@@ -1,6 +1,10 @@
 proxy_lists.py
 demo.py
+demo-0.1.6.py
 build
 dist
 MANIFEST.in
 rotating_proxy.egg-info
+# Python cache files
+**/__pycache__
+**/*.pyc

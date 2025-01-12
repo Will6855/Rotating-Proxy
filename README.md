@@ -2,12 +2,23 @@
 ![PyPI Downloads](https://static.pepy.tech/badge/rotating-proxy)
 
 A Python package for managing and utilizing rotating proxies effectively. This module provides a simple and efficient way to handle multiple proxies, automatically switching between them to enhance web scraping or any HTTP requests that require anonymity.
+
 ## Features
 
 - Proxy Pool Management: Easily add, remove, and manage a list of proxies.
 - Automatic Proxy Rotation: Automatically rotates through working proxies to ensure seamless web requests.
 - Proxy Testing: Verifies the functionality of each proxy before use, maintaining a blacklist of failed proxies.
 - Support for HTTP and SOCKS proxies: Works with different types of proxies to meet your needs.
+- Advanced Proxy Metrics: Track proxy performance with detailed success and failure metrics.
+
+## Requirements
+
+- Python 3.9+
+- Dependencies:
+  - requests
+  - typing
+  - python-dateutil
+  - dataclasses (for Python < 3.7)
 
 ## Installation
 
@@ -44,9 +55,31 @@ if __name__ == "__main__":
     project.request_function(url="https://httpbin.org/ip", method="GET")
 ```
 
+## Advanced Features
+
+### Proxy Metrics
+The `ProxyMetrics` class tracks detailed information about each proxy:
+- Success and failure counts
+- Last used and last successful timestamps
+- Proxy score
+- Consecutive failures
+
+### Customization
+- Configurable timeout and retry settings
+- SSL verification options
+- Logging for tracking proxy performance
+
 ## Contributing
 
 Contributions are welcome! If you have suggestions for improvements or additional features, feel free to open an issue or submit a pull request.
 
+## License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
 
+## Recent Updates
+
+- Added support for advanced proxy metrics
+- Improved dependency management
+- Enhanced error handling and logging
+- Expanded Python version compatibility
