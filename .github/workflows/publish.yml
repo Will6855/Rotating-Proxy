@@ -15,7 +15,5 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip build
           python3 -m build
-      - name: Publish to TestPyPi
+      - name: Publish to PyPi
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
