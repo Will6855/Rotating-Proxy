@@ -1,16 +1,22 @@
 on:
   release:
     types: [published]
+
 jobs:
   pypi-publish:
     name: Upload release to PyPI
     runs-on: ubuntu-latest
     environment: release
     permissions:
+      contents: read
       id-token: write
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
       - name: Build Package
         run: |
           python3 -m pip install --upgrade pip build
