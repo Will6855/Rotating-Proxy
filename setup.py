@@ -26,7 +26,7 @@ setup(
         'requests>=2.32.3',
         'typing>=3.7.4.3',
         'python-dateutil>=2.9.0',
-        'urllib3>=2.2.1',
+        'urllib3>=2.2.2',
         'dataclasses>=0.8; python_version < "3.7"',
     ],
 )
