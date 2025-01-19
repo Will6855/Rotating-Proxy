@@ -11,6 +11,10 @@ A Python package for managing and utilizing rotating proxies effectively. This m
 - Proxy Testing: Verifies the functionality of each proxy before use, maintaining a blacklist of failed proxies.
 - Support for HTTP and SOCKS proxies: Works with different types of proxies to meet your needs.
 - Advanced Proxy Metrics: Track proxy performance with detailed success and failure metrics.
+- Proxy Authentication: Support for authenticated proxies
+- Background Health Checks: Periodic validation of proxy health
+- Exponential Backoff: Intelligent retry mechanism for network requests
+- Dynamic Test URL: Ability to change proxy validation URL
 
 ## Requirements
 
@@ -19,6 +23,7 @@ A Python package for managing and utilizing rotating proxies effectively. This m
   - requests
   - typing
   - python-dateutil
+  - urllib3
   - dataclasses (for Python < 3.7)
 
 ## Installation
@@ -36,20 +41,36 @@ from rotating_proxy import ProxyPool, ProxySession
 
 class Project:
     def __init__(self):
-        # Initialize the proxy pool with a list of proxies.
-        # Replace "127.0.0.1:80" with your own proxies in the format:
-        # ["http://proxy1","http://proxy2",..."http://proxyN"]
-        self.proxy_pool = ProxyPool(["http://127.0.0.1:80"])
+        # Initialize the proxy pool with proxies, including authentication support
+        self.proxy_pool = ProxyPool([
+            "http://username:password@proxy1:port",
+            "http://proxy2:port"
+        ])
+        
+        # Optional: Change test URL for proxy validation
+        self.proxy_pool.change_test_url('https://api.ipify.org')
+        
+        # Filter and validate working proxies
         self.proxy_pool.filter_working_proxies()
 
-        self.proxy_session = ProxySession(self.proxy_pool)
+        # Create proxy session with custom configuration
+        self.proxy_session = ProxySession(
+            self.proxy_pool, 
+            timeout=15, 
+            max_retries=3,
+            default_headers={'User-Agent': 'MyCustomUserAgent'}
+        )
 
     def request_function(self, **kwargs):
         try:
             response = self.proxy_session.request(**kwargs)   
             print(f"IP Address: {response.json()['origin']}")
+            
+            # Get proxy performance metrics
+            metrics = self.proxy_session.get_proxy_performance()
+            print(f"Proxy Performance: {metrics}")
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            print(f"Request failed: {e}")
 
 if __name__ == "__main__":
     project = Project()
