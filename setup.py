@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='rotating_proxy',
-    version='0.3.0',
+    version='0.3.1',
     author='Will',
     author_email='',
     description='A Python package for managing and using rotating proxies',
