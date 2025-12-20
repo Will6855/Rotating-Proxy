@@ -4,7 +4,7 @@ import os
 import logging
 
 TEST_PROXIES = [
-    'http://36.103.167.209:7890',     # Working proxy
+    'http://62.113.119.14:8080',     # Working proxy
     'http://invalid.proxy:8080',     # Definitely invalid proxy
     'http://another.invalid.proxy:3128'  # Another invalid proxy
 ]
